@@ -14,11 +14,7 @@ export const GET = async () => {
 
 export const POST = async (request) => {
   const payload = checkToken();
-  if (
-    payload == null ||
-    payload.role !== "ADMIN" ||
-    payload.role !== "SUPER_ADMIN"
-  )
+  if (payload == null)
     return NextResponse.json(
       {
         ok: false,
