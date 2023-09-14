@@ -14,7 +14,11 @@ export const GET = async () => {
 
 export const POST = async (request) => {
   const payload = checkToken();
-  if (payload == null)
+  if (
+    payload == null ||
+    payload.role !== "ADMIN" ||
+    payload.role !== "SUPER_ADMIN"
+  )
     return NextResponse.json(
       {
         ok: false,
@@ -32,7 +36,7 @@ export const POST = async (request) => {
     return NextResponse.json(
       {
         ok: false,
-        message: `Room ${"replace this with room name"} already exists`,
+        message: `Room ${roomName} already exists`,
       },
       { status: 400 }
     );
@@ -48,6 +52,6 @@ export const POST = async (request) => {
   return NextResponse.json({
     ok: true,
     roomId,
-    message: `Room ${"replace this with room name"} has been created`,
+    message: `Room ${roomName} has been created`,
   });
 };

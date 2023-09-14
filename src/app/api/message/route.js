@@ -66,6 +66,15 @@ export const DELETE = async (request) => {
   const { messageId } = body;
   const ms = DB.messages.find((x) => x.messageId === messageId);
 
+  if (payload === null)
+    return NextResponse.json(
+      {
+        ok: false,
+        message: "Invalid token",
+      },
+      { status: 401 }
+    );
+
   if (payload.role !== "SUPER_ADMIN")
     return NextResponse.json(
       {
